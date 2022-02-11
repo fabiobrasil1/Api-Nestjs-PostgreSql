@@ -7,5 +7,8 @@ import { ProdutoModule } from './produto/produto.module';
   imports: [ProdutoModule],
   controllers: [AppController],
   providers: [AppService],
+  // imports: [ProdutoModule],
+  // controllers: [AppController],
+  // providers: [AppService],
 })
 export class AppModule {}
