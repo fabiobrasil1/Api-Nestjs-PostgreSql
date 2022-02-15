@@ -1,6 +1,6 @@
 
 
-## Instação
+## Instalação
 
 
 ```bash
