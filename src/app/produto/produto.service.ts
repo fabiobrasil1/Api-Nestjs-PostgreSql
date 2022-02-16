@@ -15,22 +15,35 @@ export class ProdutoService {
 
   
   create(createProdutoDto: CreateProdutoDto) {
-    return 'This action adds a new produto';
+    const produto = this.produtoRepository.create()
+    return produto
   }
 
-  findAll() {
-    return `This action returns all produto`;
+  findAll(): Promise<Produto[]> {
+    return this.produtoRepository.find();
+  // findAll() {
+  //   return `This action returns all produto`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} produto`;
+  findOne(id: number): Promise<Produto> {
+    return this.produtoRepository.findOne(id);
   }
+
+  // findOne(id: number) {
+  //   return `This action returns a #${id} produto`;
+  // }
 
   update(id: number, updateProdutoDto: UpdateProdutoDto) {
     return `This action updates a #${id} produto`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} produto`;
+  async remove(id: number): Promise<void> {
+    await this.produtoRepository.delete(id);
   }
+  
+  
+  
+  // remove(id: number) {
+  //   return `This action removes a #${id} produto`;
+  // }
 }
