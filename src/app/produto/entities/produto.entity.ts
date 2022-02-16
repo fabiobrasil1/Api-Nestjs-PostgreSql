@@ -15,9 +15,6 @@ export class Produto {
   preco: number;
   
   @Column()
-  quantidade_disponível: number;
+  quantidade_disponivel: number;
 
-
-  @Column({ default: true })
-  isActive: boolean;
 }
