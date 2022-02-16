@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,14 +9,13 @@ import { Produto } from './entities/produto.entity';
 export class ProdutoService {
   constructor(
     @InjectRepository(Produto)
-    private produtoRepository: Repository<Produto>
+    private readonly produtoRepository: Repository<Produto>
 
   ) { }
 
-  
-  create(createProdutoDto: CreateProdutoDto) {
-    const produto = this.produtoRepository.create()
-    return produto
+  create(createProdutoDto: CreateProdutoDto): Promise <Produto> {
+    const produto = this.produtoRepository.create(createProdutoDto)
+    return this.produtoRepository.save(produto)
   }
 
   findAll(): Promise<Produto[]> {
@@ -33,8 +32,17 @@ export class ProdutoService {
   //   return `This action returns a #${id} produto`;
   // }
 
-  update(id: number, updateProdutoDto: UpdateProdutoDto) {
-    return `This action updates a #${id} produto`;
+  async update(id: number, updateProdutoDto: UpdateProdutoDto): Promise <Produto> {
+    const produto = await this.produtoRepository.preload({
+      id: id,
+      ...updateProdutoDto
+    });
+    if(!produto){
+      throw new NotFoundException(`Produto ${id} não econtrado, verifique o id digitado e tente novamente!`) 
+
+    }
+   
+    return this.produtoRepository.save(produto);
   }
 
   async remove(id: number): Promise<void> {
