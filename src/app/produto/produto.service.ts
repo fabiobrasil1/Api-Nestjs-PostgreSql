@@ -20,17 +20,11 @@ export class ProdutoService {
 
   findAll(): Promise<Produto[]> {
     return this.produtoRepository.find();
-  // findAll() {
-  //   return `This action returns all produto`;
   }
 
   findOne(id: number): Promise<Produto> {
     return this.produtoRepository.findOne(id);
   }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} produto`;
-  // }
 
   async update(id: number, updateProdutoDto: UpdateProdutoDto): Promise <Produto> {
     const produto = await this.produtoRepository.preload({
@@ -48,10 +42,4 @@ export class ProdutoService {
   async remove(id: number): Promise<void> {
     await this.produtoRepository.delete(id);
   }
-  
-  
-  
-  // remove(id: number) {
-  //   return `This action removes a #${id} produto`;
-  // }
 }

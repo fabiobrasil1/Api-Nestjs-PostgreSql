@@ -7,8 +7,6 @@ import { UpdateUserDto } from './dto/update-user-dto';
 import { UsersEntity } from './user.entity';
 
 
-
-
 @Injectable()
 export class UsersService {
     constructor(
@@ -32,7 +30,6 @@ export class UsersService {
             throw new NotFoundException(error.message);
         }
     }
-
 
     async store(data: CreateUserDto) {
         const user = await this.usersRepository.create(data)

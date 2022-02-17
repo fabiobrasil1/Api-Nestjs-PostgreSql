@@ -19,5 +19,4 @@ export class CreateUserDto {
         MessagesHelper.PASSWORD_VALID, 
     })
     password: string;
-
 }

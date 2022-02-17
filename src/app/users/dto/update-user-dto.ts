@@ -7,5 +7,4 @@ export class UpdateUserDto {
 
     @IsNotEmpty()
     lastName: string;
-
 }

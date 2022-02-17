@@ -15,7 +15,6 @@ export class UsersController {
         return await this.usersService.findAll();
     }
         
-
     @Post()
     async store(@Body() body: CreateUserDto) {
         return await this.usersService.store(body);

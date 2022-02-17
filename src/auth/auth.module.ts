@@ -17,7 +17,6 @@ import { JwtStrategy } from './strategies/jwt.strategy';
       privateKey: process.env.JWT_SECRET_KEY,
       signOptions: { expiresIn: "300s"},
     })
-
   ],
   providers: [AuthService, LocalStrategy,JwtStrategy],
   controllers: [AuthController]
