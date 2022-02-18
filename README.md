@@ -35,4 +35,13 @@ $ npm run test:cov
 
 =======
 # Api-Nestjs-PostgreSql
->>>>>>> f263c16a14190b3d4741936032f1cc848a2ddbc7
+
+<div>
+[x] A aplicação conta com sitema de autenticação jwt;<br>
+[x] O sistema tem o sweger implementado;
+[x] O sistema pemite cadastrar um produto e salvar em banco de dados
+[X] É possivel atualizar os dados de um produto
+[x] O sistema permite remover um produto cadastrado no banco de dados
+[x] É possivel listar todos os produtos cadastrados
+
+</div>
