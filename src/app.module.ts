@@ -17,11 +17,10 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.TYPEORM_USERNAME,
       password: process.env.TYPEORM_PASSWORD,
       database: process.env.TYPEORM_DATABASE,
-      entities: [__dirname + "/**/*.entity{.js,.ts}"],
-      
+      entities: [__dirname + '/**/*.entity{.js,.ts}'],
+
       // Descomentar somente em ambiente de desenvolvimento
       synchronize: true,
-
     } as TypeOrmModuleOptions),
     UsersModule,
     ProdutoModule,
