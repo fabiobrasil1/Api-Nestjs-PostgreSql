@@ -15,9 +15,13 @@ $ npm install -g @nestjs/cli
 ```bash
 $ npm i swagger
 ```
-
+## Instale o Typeorm paginate
+```bash
+$ npm i nestjs-typeorm-paginate
+```
 
 ## Rodando o app
+
 
 ```bash
 # modo de desenvolvimento
