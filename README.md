@@ -58,13 +58,13 @@ $ npm run test:cov
   [x] Todas as rotas possuem proteção com sistema de autenticação jwt;<br>
   [x] O sistema possui descrição de interface implementada com Swagger;<br>
   [x] A Api possui conexão com banco de dados postgreSQL;<br>
-  [x] O sistema pemite cadastrar um produto e salvar em banco de dados<br>
-  [X] É possivel atualizar os dados de um produto cadastrado<br>
-  [x] O sistema permite remover um produto cadastrado no banco de dados<br>
-  [x] É disponibilizada uma rota lista todos os produtos cadastrados, permitindo paginação com limite de listagem de até 100 produtos <br>
-  [x] O sistema pemite cadastro de usuários de autenticação em banco de dados<br>
-  [X] É permitido atualizar os dados de um usuário de autenticação cadastrado<br>
-  [x] O sistema permite remover um usuário de autenticação cadastrado no banco de dados<br>
-  [x] É disponibilizada uma rota que lista todos os usuarios de autenticação cadastrados cadastrados<br>
+  [x] O sistema pemite cadastrar um produto e salvar em banco de dados;<br>
+  [X] É possivel atualizar os dados de um produto cadastrado;<br>
+  [x] O sistema permite remover um produto cadastrado no banco de dados;<br>
+  [x] É disponibilizada uma rota lista todos os produtos cadastrados, permitindo paginação com limite de listagem de até 100 produtos; <br>
+  [x] O sistema pemite cadastro de usuários de autenticação em banco de dados;<br>
+  [X] É permitido atualizar os dados de um usuário de autenticação cadastrado;<br>
+  [x] O sistema permite remover um usuário de autenticação cadastrado no banco de dados;<br>
+  [x] É disponibilizada uma rota que lista todos os usuarios de autenticação cadastrados cadastrados;<br>
 
 </div>
