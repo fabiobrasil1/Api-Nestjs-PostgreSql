@@ -21,9 +21,9 @@ import { number } from 'yargs';
 import { Pagination } from 'nestjs-typeorm-paginate';
 
 @Controller('produto')
-@UseGuards(AuthGuard('jwt'))
+//@UseGuards(AuthGuard('jwt'))
 export class ProdutoController {
-  constructor(private readonly produtoService: ProdutoService) { }
+  constructor(private readonly produtoService: ProdutoService) {}
 
   @Post()
   @ApiTags('produtos')
@@ -55,6 +55,11 @@ export class ProdutoController {
   @ApiTags('produtos')
   findOne(@Param('id') id: string) {
     return this.produtoService.findOne(+id);
+  }
+  @Get('disponivel/:nome')
+  @ApiTags('produtos')
+  async getQuantidadadeDisponivel(@Param('nome') params: string) {
+    return await this.produtoService.quantidadeDisponivel(params);
   }
 
   @Patch(':id')

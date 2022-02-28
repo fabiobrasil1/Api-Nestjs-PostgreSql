@@ -3,6 +3,7 @@ import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { getRepository, createConnection } from 'typeorm';
 import { Produto } from './entities/produto.entity';
 import {
   IPaginationOptions,
@@ -14,7 +15,7 @@ import {
 export class ProdutoService {
   constructor(
     @InjectRepository(Produto)
-    private readonly produtoRepository: Repository<Produto>,
+    private produtoRepository: Repository<Produto>,
   ) {}
 
   create(createProdutoDto: CreateProdutoDto): Promise<Produto> {
@@ -65,5 +66,13 @@ export class ProdutoService {
 
   async remove(id: number): Promise<void> {
     await this.produtoRepository.delete(id);
+  }
+
+  async quantidadeDisponivel(nome: string) {
+    const produto = await this.produtoRepository.find({
+      where: { nome: nome },
+    });
+
+    return { data: { quantidade: produto.length } };
   }
 }
