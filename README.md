@@ -66,5 +66,6 @@ $ npm run test:cov
   [X] É permitido atualizar os dados de um usuário de autenticação cadastrado;<br>
   [x] O sistema permite remover um usuário de autenticação cadastrado no banco de dados;<br>
   [x] É disponibilizada uma rota que lista todos os usuarios de autenticação cadastrados cadastrados;<br>
+  [x] A aplicaçao permite checar a quantidade disponivel de um determinado produto.<br>
 
 </div>
