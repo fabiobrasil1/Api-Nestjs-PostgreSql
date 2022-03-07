@@ -16,7 +16,7 @@ export class ProdutoService {
   constructor(
     @InjectRepository(Produto)
     private produtoRepository: Repository<Produto>,
-  ) {}
+  ) { }
 
   create(createProdutoDto: CreateProdutoDto): Promise<Produto> {
     const produto = this.produtoRepository.create(createProdutoDto);
@@ -75,4 +75,46 @@ export class ProdutoService {
 
     return { data: { quantidade: produto.length } };
   }
+
+  async getApi() {
+    const axios = require('axios')
+    axios.get('https://api.github.com/users/techtuxbr').then(function (resposta) {
+      console.log(resposta.data);
+    }).catch(function (error) {
+      if (error) {
+        console.log(error);
+      }
+    })
+  }
+
+  async postApi() {
+    const axios = require('axios');
+    axios.post('http://jsonplaceholder.typicode.com/posts').then(function (resposta) {
+      console.log(resposta.data);
+    })
+  }
+  
+  async postApiParams() {
+    var axios = require('axios');
+    var dados;
+
+    function getCodigo() {
+      axios.post('http://jsonplaceholder.typicode.com/posts', { email: "meuemail@email.com", senha: "12345" })
+
+    }
+
+    dados = getCodigo();
+
+    dados.then(function (resposta) {
+      console.log(resposta.data)
+    }).catch(function (error) {
+      if(error){
+        console.log(error);
+      }
+    })
+    
+  }
+
+
+
 }

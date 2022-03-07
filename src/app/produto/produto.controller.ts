@@ -32,11 +32,17 @@ export class ProdutoController {
     return await this.produtoService.create(createProdutoDto);
   }
 
-  // @Get()
-  // @ApiTags('produtos')
-  // findAll() {
-  //   return this.produtoService.findAll();
-  // }
+  @Post('postapi')
+  @ApiTags('postapi')
+  async postapi() {
+    return await this.produtoService.postApi();
+  }
+
+  @Get('getapi')
+  @ApiTags('getapi')
+  async findAll() {
+     return  await this.produtoService.getApi();
+  }
 
   @Get()
   @ApiTags('produtos')
@@ -74,4 +80,6 @@ export class ProdutoController {
   remove(@Param('id') id: string) {
     return this.produtoService.remove(+id);
   }
+
+
 }
