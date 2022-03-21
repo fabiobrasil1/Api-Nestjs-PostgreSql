@@ -9,11 +9,11 @@ export class AxiosController {
   constructor(private readonly axiosService: AxiosService){}
 
 
-  // @Post('postapi')
-  // @ApiTags('postapi')
-  // async postapi() {
-  //   return await this.axiosService.postApi();
-  // }
+  @Post('postapi')
+  @ApiTags('postapi')
+  async postapi() {
+    return await this.axiosService.salvaExemplo();
+  }
 
   // @Get('getapi')
   // @ApiTags('getapi')

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsNumber, IsString, IsNotEmpty } from 'class-validator'
+import { IsBoolean, IsNumber, IsString } from 'class-validator'
 
-export class CreteAxiosDto{
+export class CreateAxiosDto{
   @ApiProperty({example: '25', description:'identificador auto increment'})
   @IsNumber()
   id: number;
@@ -10,4 +10,14 @@ export class CreteAxiosDto{
   @IsNumber()
   resposta: number
 
+
+
+  @IsNumber()
+  userId: number;
+
+  @IsString()
+  title: string;
+
+  @IsBoolean()
+  completed: boolean;
 }

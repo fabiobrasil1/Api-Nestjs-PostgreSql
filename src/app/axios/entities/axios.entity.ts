@@ -5,7 +5,13 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class Axios {
   @PrimaryGeneratedColumn()
   id: number;
-  
+
   @Column()
-  resposta: number;
+  userId: number;
+
+  @Column()
+  title: string;
+
+  @Column()
+  completed: boolean;
 }

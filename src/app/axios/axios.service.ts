@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { Repository } from 'typeorm';
-import { CreateProdutoDto } from '../produto/dto/create-produto.dto';
+import { CreateAxiosDto } from './dto/create.axios.dto';
 import { Axios } from './entities/axios.entity';
 
 @Injectable()
@@ -15,17 +15,32 @@ export class AxiosService {
     @InjectRepository(Axios)
     private axiosRepository: Repository<Axios>
   ) { }
-  findAll(): Observable<AxiosResponse<Axios[]>> {
-    return this.httpService.get('http://jsonplaceholder.typicode.com/todos');
+
+  async findAll() {
+    let resposta = await this.httpService.get('http://jsonplaceholder.typicode.com/todos').toPromise();
+    try {
+      return resposta.data
+    } catch (err) {
+      console.log(err)
+    }
   }
 
+  async salvaExemplo() {
+    let resposta = await this.httpService.get('http://jsonplaceholder.typicode.com/todos').toPromise();
+    try {
 
-  // async findAll() {
-  //   return await this.http.get('https://swapi.dev/api/planets')
-  // }
-  // async postApiParams() {
-  //   var axios = require('axios');
-  //   var dados;
+      const axiosExemplo = new Axios()
+
+      
+      axiosExemplo.userId = resposta[0].userId;
+      axiosExemplo.title = resposta[0].title;
+      axiosExemplo.completed = resposta[0].completed;
+
+      return this.axiosRepository.save(axiosExemplo)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   //   function getCodigo() {
   //     axios.post('http://jsonplaceholder.typicode.com/posts', { email: "meuemail@email.com", senha: "12345" })
@@ -55,27 +70,9 @@ export class AxiosService {
   //   })
   // }
 
-  // async getApi() {
-  //   const axios = require('axios')
-  //   axios.get('http://jsonplaceholder.typicode.com/todos').then(function (resposta) {
-  //     console.log(resposta.data);
-  //     return resposta.data;
-  //   }).catch(function (error) {
-  //     if (error) {
-  //       console.log(error);
-  //     }
-  //   })
-  // }
 
-  // getAllAxios(): Observable<AxiosResponse<Axios[]>> {
-  //   // let axios = [];
-  //   // const url = 'http://jsonplaceholder.typicode.com/todos';
-  //   const resposta = this.httpService.get('http://jsonplaceholder.typicode.com/todos');
 
-  //   return resposta;
-  // }
 
-  // async findAll(){
-  //   return await this.http.get('http://jsonplaceholder.typicode.com/todos');
-  // }
+
+
 } 
