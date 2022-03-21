@@ -1,3 +1,4 @@
+import { AxiosModule } from './app/axios/axios.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -9,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
+    AxiosModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: process.env.TYPEORM_CONNECTION,
@@ -29,4 +31,4 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

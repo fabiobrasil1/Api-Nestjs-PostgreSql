@@ -79,7 +79,10 @@ export class ProdutoService {
   async getApi() {
     const axios = require('axios')
     axios.get('https://api.github.com/users/techtuxbr').then(function (resposta) {
-      console.log(resposta.data);
+      console.log(resposta.data)
+      let teste = resposta.data
+      
+      return teste
     }).catch(function (error) {
       if (error) {
         console.log(error);
@@ -89,9 +92,14 @@ export class ProdutoService {
 
   async postApi() {
     const axios = require('axios');
+    var reposta: any
     axios.post('http://jsonplaceholder.typicode.com/posts').then(function (resposta) {
-      console.log(resposta.data);
+      //console.log(resposta.data);
+      
+
+      return resposta.data
     })
+    
   }
   
   async postApiParams() {
@@ -100,21 +108,16 @@ export class ProdutoService {
 
     function getCodigo() {
       axios.post('http://jsonplaceholder.typicode.com/posts', { email: "meuemail@email.com", senha: "12345" })
-
     }
 
     dados = getCodigo();
 
-    dados.then(function (resposta) {
+    dados.then(function (resposta:any) {
       console.log(resposta.data)
     }).catch(function (error) {
       if(error){
         console.log(error);
       }
     })
-    
   }
-
-
-
 }
