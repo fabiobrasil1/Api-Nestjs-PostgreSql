@@ -2,10 +2,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AxiosResponse } from 'axios';
-import { Observable } from 'rxjs';
 import { Repository } from 'typeorm';
-import { CreateAxiosDto } from './dto/create.axios.dto';
 import { Axios } from './entities/axios.entity';
 
 @Injectable()
@@ -25,24 +22,28 @@ export class AxiosService {
     }
   }
 
-  async salvaExemplo() {
+  async salvaRequisicao() {
     let resposta = await this.httpService.get('http://jsonplaceholder.typicode.com/todos').toPromise();
-    try {
 
-      const axiosExemplo = new Axios()
+    for (let i in resposta.data) {
+      try {
+        const axiosExemplo = new Axios()
 
-      
-      axiosExemplo.userId = resposta[0].userId;
-      axiosExemplo.title = resposta[0].title;
-      axiosExemplo.completed = resposta[0].completed;
+        console.log(resposta.data)
 
-      return this.axiosRepository.save(axiosExemplo)
-    } catch (err) {
-      console.log(err)
+        axiosExemplo.userId = resposta.data[i].userId;
+        axiosExemplo.title = resposta.data[i].title;
+        axiosExemplo.completed = resposta.data[i].completed;
+
+        this.axiosRepository.save(axiosExemplo)
+      } catch (err) {
+        console.log(err)
+      }
     }
+    return resposta.data
   }
 
-  //   function getCodigo() {
+  //   function axiosParams() {
   //     axios.post('http://jsonplaceholder.typicode.com/posts', { email: "meuemail@email.com", senha: "12345" })
   //   }
 
@@ -59,20 +60,4 @@ export class AxiosService {
   //     }
   //   })
   // }
-
-  // async postApi() {
-  //   const axios = require('axios');
-
-  //   axios.post('http://jsonplaceholder.typicode.com/posts').then(function (resposta) {
-  //     //console.log(resposta.data);
-  //     this.axiosRepository.create(resposta.data)
-  //     return this.axiosRepository.save(resposta.data)
-  //   })
-  // }
-
-
-
-
-
-
 } 
