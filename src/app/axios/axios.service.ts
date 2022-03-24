@@ -8,7 +8,7 @@ import { Axios } from './entities/axios.entity';
 @Injectable()
 export class AxiosService {
   constructor(
-    private httpService: HttpService,
+    private readonly httpService: HttpService,
     @InjectRepository(Axios)
     private axiosRepository: Repository<Axios>
   ) { }
@@ -23,24 +23,31 @@ export class AxiosService {
   }
 
   async salvaRequisicao() {
-    let resposta = await this.httpService.get('http://jsonplaceholder.typicode.com/todos').toPromise();
 
-    for (let i in resposta.data) {
-      try {
-        const axiosExemplo = new Axios()
+    const url = 'http://jsonplaceholder.typicode.com/todos';
+    let resposta = await this.httpService.get<Axios>(url).toPromise();
 
-        console.log(resposta.data)
+    if (resposta.status === 200) {
+      for (let i in resposta.data) {
+        try {
+          const axiosExemplo = new Axios()
 
-        axiosExemplo.userId = resposta.data[i].userId;
-        axiosExemplo.title = resposta.data[i].title;
-        axiosExemplo.completed = resposta.data[i].completed;
+          console.log(resposta.data)
 
-        this.axiosRepository.save(axiosExemplo)
-      } catch (err) {
-        console.log(err)
+          axiosExemplo.userId = resposta.data[i].userId;
+          axiosExemplo.title = resposta.data[i].title;
+          axiosExemplo.completed = resposta.data[i].completed;
+
+          this.axiosRepository.save(axiosExemplo)
+        } catch (err) {
+          console.log(err)
+        }
       }
+      return resposta.data
+    } else if (resposta.status != 200) {
+      console.log(resposta.status)
+      return resposta.status
     }
-    return resposta.data
   }
 
   //   function axiosParams() {

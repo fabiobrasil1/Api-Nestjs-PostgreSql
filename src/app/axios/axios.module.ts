@@ -10,5 +10,6 @@ import { Repository } from 'typeorm';
     imports: [TypeOrmModule.forFeature([Axios]),HttpModule],
     controllers: [AxiosController,],
     providers: [AxiosService,Repository],
+
 })
 export class AxiosModule { }
