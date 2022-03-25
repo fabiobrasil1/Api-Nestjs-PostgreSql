@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 @Module({
     imports: [TypeOrmModule.forFeature([Axios]),HttpModule],
     controllers: [AxiosController,],
-    providers: [AxiosService,Repository],
+    providers: [AxiosService,Repository,],
 
 })
 export class AxiosModule { }

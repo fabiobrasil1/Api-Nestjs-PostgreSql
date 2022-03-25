@@ -11,11 +11,11 @@ describe('AxiosService', () => {
       providers: [
         AxiosService,
         {
-          provide: HttpService,
+          provide: AxiosService,
           useValue: {
             get: jest.fn(),
           },
-        }
+        },
       ],
     }).compile();
 
