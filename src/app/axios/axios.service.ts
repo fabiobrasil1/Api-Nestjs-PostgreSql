@@ -13,14 +13,14 @@ export class AxiosService {
     private axiosRepository: Repository<Axios>
   ) { }
 
-  // async findAll() {
-  //   let resposta = await this.httpService.get('http://jsonplaceholder.typicode.com/todos').toPromise();
-  //   try {
-  //     return resposta.data
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
+  async findAll() {
+    let resposta = await this.httpService.get('http://jsonplaceholder.typicode.com/todos').toPromise();
+    try {
+      return resposta.data
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   async salvaRequisicao() {
 
