@@ -25,61 +25,54 @@ import { Pagination } from 'nestjs-typeorm-paginate';
 export class ProdutoController {
   constructor(private readonly produtoService: ProdutoService) {}
 
-  @Post()
-  @ApiTags('produtos')
+  @Post('novoproduto')
+  @ApiTags('novoproduto')
   @ApiBody({ type: CreateProdutoDto })
   async create(@Body() createProdutoDto: CreateProdutoDto) {
-    return await this.produtoService.create(createProdutoDto);
+    return await this.produtoService.criaProduto(createProdutoDto);
   }
 
-  @Post('postapi')
-  @ApiTags('postapi')
-  async postapi() {
-    return await this.produtoService.postApi();
-  }
-
-  @Get('getapi')
+  @Get('listatodos')
   @ApiTags('getapi')
-  async findAll() {
-     return  await this.produtoService.getApi();
+  async listaTodos() {
+     return  await this.produtoService.listaTodos();
   }
 
-  @Get()
+  @Get('listatodosPaginacao')
   @ApiTags('produtos')
   @ApiQuery({ name: 'page', required: false, type: number })
   @ApiQuery({ name: 'limit', required: false, type: number })
   async Index(
     @Query('page') page = 1,
-    @Query('limit') limit = 100,
+    @Query('limit') limit = 10,
   ): Promise<Pagination<Produto>> {
-    limit = limit > 100 ? 100 : limit;
+    limit = limit > 10 ? 10 : limit;
 
-    return await this.produtoService.findAll({ page, limit });
+    return await this.produtoService.litstaTodosPaginacao({ page, limit });
   }
 
-  @Get(':id')
+  @Get('listaum/:id')
   @ApiTags('produtos')
   findOne(@Param('id') id: string) {
-    return this.produtoService.findOne(+id);
+    return this.produtoService.listaUm(+id);
   }
-  @Get('disponivel/:nome')
+  
+  @Get('quantidadedisponivel/:nome')
   @ApiTags('produtos')
   async getQuantidadadeDisponivel(@Param('nome') params: string) {
     return await this.produtoService.quantidadeDisponivel(params);
   }
 
-  @Patch(':id')
+  @Patch('atualizaproduto/:id')
   @ApiTags('produtos')
   @ApiBody({ type: UpdateProdutoDto })
   update(@Param('id') id: string, @Body() updateProdutoDto: UpdateProdutoDto) {
-    return this.produtoService.update(+id, updateProdutoDto);
+    return this.produtoService.atualizaProduto(+id, updateProdutoDto);
   }
 
-  @Delete(':id')
+  @Delete('removeproduto/:id')
   @ApiTags('produtos')
   remove(@Param('id') id: string) {
-    return this.produtoService.remove(+id);
+    return this.produtoService.removeProduto(+id);
   }
-
-
 }

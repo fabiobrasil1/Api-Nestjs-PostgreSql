@@ -11,7 +11,7 @@ export class AxiosController {
   @Get('getapifindAll')
   @ApiTags('getapifindAll')
   async findAll() {
-     return this.axiosService.findAll();
+    return await this.axiosService.findAll();
   }
 
   @Post('salvarequisicao')

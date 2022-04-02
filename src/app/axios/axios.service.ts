@@ -48,13 +48,17 @@ export class AxiosService {
       console.log(resposta.status)
       return resposta.status
     }
+    return resposta.data
   }
 
-  //   function axiosParams() {
-  //     axios.post('http://jsonplaceholder.typicode.com/posts', { email: "meuemail@email.com", senha: "12345" })
+  // axiosParams() {
+    
+  //   getCodigo(){
+  //     const axios = require('axios')
+  //     axios.post('http://jsonplaceholder.typicode.com/posts', { email: "meuemail@email.com", senha: "12345" }).toPromise()
   //   }
 
-  //   dados = getCodigo();
+  //   let dados = getCodigo();
 
   //   dados.then(function (resposta: any) {
   //     console.log(resposta.data)
@@ -67,4 +71,7 @@ export class AxiosService {
   //     }
   //   })
   // }
-} 
+
+}
+
+

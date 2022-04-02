@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,62 +10,79 @@ import {
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
+import { MessagesHelper } from 'src/helpers/messages.helper';
 
 @Injectable()
 export class ProdutoService {
   constructor(
+    //injecao de dependncia
+    //instanciando entidade Produto
     @InjectRepository(Produto)
     private produtoRepository: Repository<Produto>,
   ) { }
 
-  create(createProdutoDto: CreateProdutoDto): Promise<Produto> {
+  criaProduto(createProdutoDto: CreateProdutoDto): Promise<Produto> {
     const produto = this.produtoRepository.create(createProdutoDto);
     return this.produtoRepository.save(produto);
   }
 
-  // findAll(): Promise<Produto[]> {
-  //   return this.produtoRepository.find();
-  // }
+  listaTodos(): Promise<Produto[]> {
+    return this.produtoRepository.find();
+  }
 
-  async findAll(options: IPaginationOptions): Promise<Pagination<Produto>> {
-    const queryBuilder = this.produtoRepository.createQueryBuilder('p');
+  async litstaTodosPaginacao(options: IPaginationOptions): Promise<Pagination<Produto>> {
+    const queryBuilder = this.produtoRepository.createQueryBuilder('produto');
 
     queryBuilder.select([
-      'p.id',
-      'p.nome',
-      'p.descricao',
-      'p.preco',
-      'p.quantidade_disponivel',
+      'produto.id',
+      'produto.nome',
+      'produto.descricao',
+      'produto.preco',
+      'produto.quantidade_disponivel',
     ]);
 
-    queryBuilder.orderBy('p.id', 'ASC');
+    queryBuilder.orderBy('produto.id', 'ASC');
 
     return paginate<Produto>(queryBuilder, options);
   }
 
-  findOne(id: number): Promise<Produto> {
-    return this.produtoRepository.findOne(id);
+  listaUm(id: number): Promise<Produto> {
+    const produto = this.produtoRepository.findOne(id)
+    if (!produto) {
+      throw new HttpException(
+        `produto ${id} não encontrado, veritique o id digitado e tente novamente!`,
+        HttpStatus.NOT_FOUND
+      )
+    }
+    return produto;
   }
 
-  async update(
+  async atualizaProduto(
     id: number,
     updateProdutoDto: UpdateProdutoDto,
-  ): Promise<Produto> {
+  ): Promise<UpdateProdutoDto> {
     const produto = await this.produtoRepository.preload({
       id: id,
       ...updateProdutoDto,
     });
     if (!produto) {
-      throw new NotFoundException(
+      throw new HttpException(
         `Produto ${id} não econtrado, verifique o id digitado e tente novamente!`,
+        HttpStatus.NOT_FOUND
       );
     }
 
     return this.produtoRepository.save(produto);
   }
 
-  async remove(id: number): Promise<void> {
-    await this.produtoRepository.delete(id);
+  async removeProduto(id: number): Promise<void> {
+    const produto = await this.produtoRepository.delete(id);
+    if (!produto) {
+      throw new HttpException(
+        `Produto ${id} não econtrado, verifique o id digitado e tente novamente!`,
+        HttpStatus.NOT_FOUND
+      );
+    }
   }
 
   async quantidadeDisponivel(nome: string) {
@@ -74,50 +91,5 @@ export class ProdutoService {
     });
 
     return { data: { quantidade: produto.length } };
-  }
-
-  async getApi() {
-    const axios = require('axios')
-    axios.get('https://api.github.com/users/techtuxbr').then(function (resposta) {
-      console.log(resposta.data)
-      let teste = resposta.data
-      
-      return teste
-    }).catch(function (error) {
-      if (error) {
-        console.log(error);
-      }
-    })
-  }
-
-  async postApi() {
-    const axios = require('axios');
-    var reposta: any
-    axios.post('http://jsonplaceholder.typicode.com/posts').then(function (resposta) {
-      //console.log(resposta.data);
-      
-
-      return resposta.data
-    })
-    
-  }
-  
-  async postApiParams() {
-    var axios = require('axios');
-    var dados;
-
-    function getCodigo() {
-      axios.post('http://jsonplaceholder.typicode.com/posts', { email: "meuemail@email.com", senha: "12345" })
-    }
-
-    dados = getCodigo();
-
-    dados.then(function (resposta:any) {
-      console.log(resposta.data)
-    }).catch(function (error) {
-      if(error){
-        console.log(error);
-      }
-    })
   }
 }
