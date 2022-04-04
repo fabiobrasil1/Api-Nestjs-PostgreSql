@@ -1,3 +1,5 @@
+import { SendMailService } from './app/sendEmail/sendmail.service';
+import { SendMailController } from './app/sendEmail/sendmail.controller';
 import { AxiosModule } from './app/axios/axios.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
@@ -28,7 +30,9 @@ import { AuthModule } from './auth/auth.module';
     ProdutoModule,
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [
+    SendMailController, AppController],
+  providers: [
+    SendMailService, AppService],
 })
 export class AppModule { }
