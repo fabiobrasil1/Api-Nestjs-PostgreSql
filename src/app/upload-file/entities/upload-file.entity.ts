@@ -1,13 +1,16 @@
 import { Column, PrimaryGeneratedColumn } from 'typeorm';
 
 
-export class UploadFile {
+export class UploadFileEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  fileid: number;
 
   @Column()
   descricao: string;
 
   @Column()
   fileName: string;
+
+  @Column()
+  fileEncoded:string;
 }
