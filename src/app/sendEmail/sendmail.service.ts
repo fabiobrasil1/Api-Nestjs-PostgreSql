@@ -15,8 +15,8 @@ export class SendMailService {
       port: 465,
       secure: true,
       auth: {
-        user: "fabiobfelix@hotmail.com",
-        pass: "jitsuthai"
+        user: process.env.SEND_EMAIL_USER,
+        pass: process.env.SEND_EMAIL_PASS
       }
     });
     
