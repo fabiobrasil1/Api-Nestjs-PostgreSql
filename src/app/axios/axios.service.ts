@@ -1,4 +1,3 @@
-
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,7 +23,7 @@ export class AxiosService {
     }
   }
 
-  async salvaExemplo() {
+  async salvaResposta() {
     let resposta = await this.httpService.get('http://jsonplaceholder.typicode.com/todos').toPromise();
 
     for (let i in resposta.data) {
@@ -61,18 +60,4 @@ export class AxiosService {
       }
     })
   }
-
-  // async postApi() {
-  //   const axios = require('axios');
-
-  //   axios.post('http://jsonplaceholder.typicode.com/posts').then(function (resposta) {
-  //     //console.log(resposta.data);
-  //     this.axiosRepository.create(resposta.data)
-  //     return this.axiosRepository.save(resposta.data)
-  //   })
-  // }
-
-
-
-
 } 
