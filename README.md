@@ -62,7 +62,7 @@ $ npm run test:cov
 
 <div>
   
-  - [x] As rotas possuem proteção com sistema de autenticação JWT;<br>
+  - [x] A aplicaçao possui sistema de login com autenticação JWT;<br>
   - [x] O sistema possui descrição de interface implementada com Swagger;<br>
   - [x] A Api possui conexão com banco de dados postgreSQL;<br>
   - [x] O sistema pemite cadastrar um produto e salvar em banco de dados;<br>
