@@ -76,6 +76,8 @@ $ npm run test:cov
   - [x] A aplicaçao permite checar a quantidade disponivel de um determinado produto.<br>
   - [x] O sistema possui um metodo que lista os dados de uma requisição utilizando a biblioteca nest/axios
   - [x] A aplicação possui um metodo que lista e salva em banco de dados a resposta.data da requisição.
+  - [x] O sistema possui serviço de envio de email
+  - [x] Api possui uma rota de upload de imagem com salvamento em banco de dados
  
 
 </div>
