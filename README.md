@@ -25,6 +25,11 @@ $ npm i nestjs-typeorm-paginate
 $ npm i --save @nestjs/axios
 ```
 
+## Para trabalhar com upload de arquivos utilzamos o multer do Express.
+```
+$ npm i -D @types/multer
+```
+
 <h1>Pronto, agora você já pode iniciar a aplicação! 🚀</h1>
 
 ## Rodando o app
@@ -62,7 +67,7 @@ $ npm run test:cov
 
 <div>
   
-  - [x] As rotas possuem proteção com sistema de autenticação JWT;<br>
+  - [x] A aplicaçao possui sistema de login com autenticação JWT;<br>
   - [x] O sistema possui descrição de interface implementada com Swagger;<br>
   - [x] A Api possui conexão com banco de dados postgreSQL;<br>
   - [x] O sistema pemite cadastrar um produto e salvar em banco de dados;<br>
@@ -76,6 +81,8 @@ $ npm run test:cov
   - [x] A aplicaçao permite checar a quantidade disponivel de um determinado produto.<br>
   - [x] O sistema possui um metodo que lista os dados de uma requisição utilizando a biblioteca nest/axios
   - [x] A aplicação possui um metodo que lista e salva em banco de dados a resposta.data da requisição.
+  - [x] O sistema possui serviço de envio de email
+  - [x] Api possui uma rota de upload de imagem com salvamento em banco de dados
  
 
 </div>
