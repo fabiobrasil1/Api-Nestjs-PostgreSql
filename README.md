@@ -25,6 +25,11 @@ $ npm i nestjs-typeorm-paginate
 $ npm i --save @nestjs/axios
 ```
 
+## Para trabalhar com upload de arquivos utilzamos o multer do Express.
+```
+$ npm i -D @types/multer
+```
+
 <h1>Pronto, agora você já pode iniciar a aplicação! 🚀</h1>
 
 ## Rodando o app
