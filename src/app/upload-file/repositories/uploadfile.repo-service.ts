@@ -9,6 +9,7 @@ export class UploadFileRepoService {
 	constructor(
 		@InjectRepository(UploadFileEntity)
 		private uploadFileRepository: Repository<UploadFileEntity>,
+		
 	) { }
 
 	async docImage(fileEncoded: string, fileId: number, fileName: string): Promise<UploadFileEntity> {
