@@ -2,6 +2,8 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import axios, { AxiosResponse } from 'axios';
+import { Observable } from 'rxjs';
 import { Repository } from 'typeorm';
 import { Axios } from './entities/axios.entity';
 
@@ -22,56 +24,55 @@ export class AxiosService {
     }
   }
 
-  async salvaRequisicao() {
+  async salvaExemplo() {
+    let resposta = await this.httpService.get('http://jsonplaceholder.typicode.com/todos').toPromise();
 
-    const url = 'http://jsonplaceholder.typicode.com/todos';
-    let resposta = await this.httpService.get<Axios>(url).toPromise();
+    for (let i in resposta.data) {
+      try {
+        const axiosExemplo = new Axios()
 
-    if (resposta.status === 200) {
-      for (let i in resposta.data) {
-        try {
-          const axiosExemplo = new Axios()
+        axiosExemplo.userId = resposta.data[i].userId;
+        axiosExemplo.title = resposta.data[i].title;
+        axiosExemplo.completed = resposta.data[i].completed;
 
-          console.log(resposta.data)
-
-          axiosExemplo.userId = resposta.data[i].userId;
-          axiosExemplo.title = resposta.data[i].title;
-          axiosExemplo.completed = resposta.data[i].completed;
-
-          this.axiosRepository.save(axiosExemplo)
-        } catch (err) {
-          console.log(err)
-        }
+        this.axiosRepository.save(axiosExemplo)
+      } catch (err) {
+        console.log(err)
       }
-      return resposta.data
-    } else if (resposta.status != 200) {
-      console.log(resposta.status)
-      return resposta.status
     }
     return resposta.data
   }
 
-  // axiosParams() {
-    
-  //   getCodigo(){
-  //     const axios = require('axios')
-  //     axios.post('http://jsonplaceholder.typicode.com/posts', { email: "meuemail@email.com", senha: "12345" }).toPromise()
-  //   }
+  axiosParams() {
+    async function getCodigo() {
+      await axios.post('http://jsonplaceholder.typicode.com/posts', { email: "meuemail@email.com", senha: "12345" })
+    }
 
-  //   let dados = getCodigo();
+    let dados = getCodigo();
 
-  //   dados.then(function (resposta: any) {
-  //     console.log(resposta.data)
+    dados.then(function (resposta: any) {
+      console.log(resposta.data)
 
-  //     return resposta.data
+      return resposta.data
 
-  //   }).catch(function (error) {
-  //     if (error) {
-  //       console.log(error);
-  //     }
+    }).catch(function (error) {
+      if (error) {
+        console.log(error);
+      }
+    })
+  }
+
+  // async postApi() {
+  //   const axios = require('axios');
+
+  //   axios.post('http://jsonplaceholder.typicode.com/posts').then(function (resposta) {
+  //     //console.log(resposta.data);
+  //     this.axiosRepository.create(resposta.data)
+  //     return this.axiosRepository.save(resposta.data)
   //   })
   // }
 
-}
 
 
+
+} 

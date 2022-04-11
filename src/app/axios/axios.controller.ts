@@ -8,6 +8,13 @@ import { AxiosService } from './axios.service';
 export class AxiosController {
   constructor(private readonly axiosService: AxiosService){}
 
+
+  @Post('salvaResposta')
+  @ApiTags('postapi')
+  async postapi() {
+    return await this.axiosService.salvaExemplo();
+  }
+
   @Get('getapifindAll')
   @ApiTags('getapifindAll')
   async findAll() {
@@ -19,4 +26,11 @@ export class AxiosController {
   async postapi() {
     return await this.axiosService.salvaRequisicao();
   }
+
+  @Post('axiosParams')
+  async axiosParams(){
+    return this.axiosService.axiosParams();
+  } 
+  
+  
 }
