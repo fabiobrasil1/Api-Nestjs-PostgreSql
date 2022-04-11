@@ -21,11 +21,11 @@ export class AxiosController {
     return await this.axiosService.findAll();
   }
 
-  @Post('salvarequisicao')
-  @ApiTags('salvarequisicao')
-  async postapi() {
-    return await this.axiosService.salvaRequisicao();
-  }
+  // @Post('salvarequisicao')
+  // @ApiTags('salvarequisicao')
+  // async postapi() {
+  //   return await this.axiosService.salvaRequisicao();
+  // }
 
   @Post('axiosParams')
   async axiosParams(){
