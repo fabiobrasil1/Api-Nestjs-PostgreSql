@@ -5,33 +5,11 @@ import { UploadFileRepoService } from './repositories/uploadfile.repo-service';
 
 @Injectable()
 export class UploadFileService {
-  constructor(private uploadFileRepoService: UploadFileRepoService){ }
+  constructor(private uploadFileRepoService: UploadFileRepoService) { }
 
+  async uploadDocImage(file: Express.Multer.File): Promise<void> {
+    const encoded = file.buffer.toString('base64');
 
-  async uploadDocImage(file: Express.Multer.File, fileId: number): Promise<void> {
-		const encoded = file.buffer.toString('base64');
-		const fileName = file.originalname
-		await this.uploadFileRepoService.docImage(encoded, fileId, fileName)
-	}
-  
-  
-  create(createUploadFileDto: CreateUploadFileDto) {
-    return 'This action adds a new uploadFile';
-  }
-
-  findAll() {
-    return `This action returns all uploadFile`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} uploadFile`;
-  }
-
-  update(id: number, updateUploadFileDto: UpdateUploadFileDto) {
-    return `This action updates a #${id} uploadFile`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} uploadFile`;
+    await this.uploadFileRepoService.docImage(encoded)
   }
 }
