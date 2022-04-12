@@ -13,8 +13,8 @@ import { join } from 'path';
         host: 'https://outlook.live.com/',
         secure: false,
         auth: {
-          user: 'fabiobfelix@hotmail.com',
-          pass: 'senha',
+          user: process.env.SEND_EMAIL_USER,
+          pass: process.env.SEND_EMAIL_PASS,
         },
       },
       defaults: {

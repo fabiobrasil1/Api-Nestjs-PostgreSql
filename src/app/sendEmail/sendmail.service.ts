@@ -6,30 +6,32 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class SendMailService {
-
-  enviaEmail() {
+  async enviaEmail() {
     const nodemailer = require("nodemailer");
 
     let transporter = nodemailer.createTransport({
-      host: "smtp.live.com",
-      port: 465,
-      secure: true,
+      host: process.env.SEND_EMAIL_HOST,
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.SEND_EMAIL_USER,
         pass: process.env.SEND_EMAIL_PASS
+      },
+      tls: {
+        rejectUnauthorized: false,
       }
     });
-    
-    transporter.sendEmail({
-      from: "Fabio Brasil <fabiobfelix@hotmail.com>",
-      to: "fabiobfelix6@gmail.com.br",
-      subject: "oi, eu so o Fabio",
-      text: "olá esse e o texto do email",
-      html: "<h2>teste de texto no formato html</h2>",
+
+    await transporter.sendMail({
+      from: "Fabio Brasil <fabiobfelix6@gmail.com>",
+      to: ['fabiobfelix@hotmail.com.br'],
+      subject: "teste Assunto do email",
+      text: "olá esse e o texto do e-mail",
+      // html: "<h2>teste de texto no formato html</h2>",
     }).then(message => {
       console.log(message);
     }).cath(err => {
       console.log(err);
     })
   }
-}
+} 
