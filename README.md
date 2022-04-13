@@ -30,6 +30,11 @@ $ npm i --save @nestjs/axios
 $ npm i -D @types/multer
 ```
 
+## Para utilizar o modulo de envio de e-mail intalamos o nodemailer
+```
+$ npm i @nestjs-modules/mailer
+``` 
+
 <h1>Pronto, agora você já pode iniciar a aplicação! 🚀</h1>
 
 ## Rodando o app
