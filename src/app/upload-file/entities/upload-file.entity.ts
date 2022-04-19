@@ -4,6 +4,9 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class UploadFileEntity {
   @PrimaryGeneratedColumn()
   fileid: number;
+
+  @Column({nullable: true})
+  descricao!:string;
   
   @Column()
   fileEncoded:string;

@@ -7,9 +7,9 @@ import { UploadFileRepoService } from './repositories/uploadfile.repo-service';
 export class UploadFileService {
   constructor(private uploadFileRepoService: UploadFileRepoService) { }
 
-  async uploadDocImage(file: Express.Multer.File): Promise<void> {
+  async uploadDocImage(file: Express.Multer.File, createUploadFileDto: CreateUploadFileDto): Promise<void> {
     const encoded = file.buffer.toString('base64');
 
-    await this.uploadFileRepoService.docImage(encoded)
+    await this.uploadFileRepoService.docImage(encoded,createUploadFileDto)
   }
 }

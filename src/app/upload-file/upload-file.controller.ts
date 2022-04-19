@@ -2,6 +2,7 @@ import { Controller, Post, UseInterceptors, UploadedFile } from '@nestjs/common'
 import { UploadFileService } from './upload-file.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express'
+import { CreateUploadFileDto } from './dto/create-upload-file.dto';
 
 @Controller('upload-file')
 export class UploadFileController {
@@ -9,7 +10,13 @@ export class UploadFileController {
 
   @Post('documents/upload')
 	@UseInterceptors(FileInterceptor('file'))
-	uploadFile(@UploadedFile() file: Express.Multer.File){
-		return this.uploadFileService.uploadDocImage(file);
+	uploadFile(@UploadedFile() file: Express.Multer.File, createUploadFileDto: CreateUploadFileDto){
+		return this.uploadFileService.uploadDocImage(file, createUploadFileDto);
+  }
+
+  @Post('documents/upload')
+	@UseInterceptors(FileInterceptor('file'))
+	uploadFileBoddy(@UploadedFile() file: Express.Multer.File, createUploadFileDto : CreateUploadFileDto){
+		return this.uploadFileService.uploadDocImage(file,createUploadFileDto);
   }
 }
