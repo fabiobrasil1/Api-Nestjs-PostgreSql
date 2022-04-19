@@ -13,10 +13,4 @@ export class UploadFileController {
 	uploadFile(@UploadedFile() file: Express.Multer.File, createUploadFileDto: CreateUploadFileDto){
 		return this.uploadFileService.uploadDocImage(file, createUploadFileDto);
   }
-
-  @Post('documents/upload')
-	@UseInterceptors(FileInterceptor('file'))
-	uploadFileBoddy(@UploadedFile() file: Express.Multer.File, createUploadFileDto : CreateUploadFileDto){
-		return this.uploadFileService.uploadDocImage(file,createUploadFileDto);
-  }
 }
