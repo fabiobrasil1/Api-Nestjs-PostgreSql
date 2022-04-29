@@ -13,12 +13,14 @@ import { ProdutoService } from './produto.service';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiCreatedResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 
-import { Produto } from './entities/produto.entity';
+import { ProdutoEntity } from './entities/produto.entity';
 import { type } from 'os';
 import { number } from 'yargs';
 import { Pagination } from 'nestjs-typeorm-paginate';
+import { ProdutoDto } from './dto/produto.dto';
+import { FiltroPaginacaoProdutosDTO } from './dto/filtro-produto.dto';
 
 @Controller('produto')
 //@UseGuards(AuthGuard('jwt'))
@@ -38,14 +40,33 @@ export class ProdutoController {
      return  await this.produtoService.listaTodos();
   }
 
-  @Get('listatodosPaginacao')
+  @Get('paginacao')
+  @ApiTags('produtos')
+  @ApiCreatedResponse({
+    description: 'Ok.',
+    type: ProdutoDto,
+  })
+  async findAllByProdutoId(
+    @Query() query: FiltroPaginacaoProdutosDTO,
+  ): Promise<ProdutoDto> {
+    if (!query.page) {
+      query.page = 1;
+    }
+    if (!query.limit) {
+      query.limit = 20;
+    }
+
+    return await this.produtoService.findAllByProdutoId(query);
+  }
+
+  @Get('paginationlib')
   @ApiTags('produtos')
   @ApiQuery({ name: 'page', required: false, type: number })
   @ApiQuery({ name: 'limit', required: false, type: number })
   async Index(
     @Query('page') page = 1,
     @Query('limit') limit = 10,
-  ): Promise<Pagination<Produto>> {
+  ): Promise<Pagination<ProdutoEntity>> {
     limit = limit > 10 ? 10 : limit;
 
     return await this.produtoService.litstaTodosPaginacao({ page, limit });

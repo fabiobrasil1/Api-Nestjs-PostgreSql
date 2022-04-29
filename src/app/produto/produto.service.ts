@@ -4,33 +4,42 @@ import { UpdateProdutoDto } from './dto/update-produto.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { getRepository, createConnection } from 'typeorm';
-import { Produto } from './entities/produto.entity';
+import { ProdutoEntity } from './entities/produto.entity';
 import {
   IPaginationOptions,
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
 import { MessagesHelper } from 'src/helpers/messages.helper';
+import { FiltroPaginacaoProdutosDTO } from './dto/filtro-produto.dto';
+import { ProdutoDto } from './dto/produto.dto';
+import { ProdutoRepoService } from './repositories/produto-repo.service';
+import
 
 @Injectable()
 export class ProdutoService {
   constructor(
-    //injecao de dependncia
-    //instanciando entidade Produto
-    @InjectRepository(Produto)
-    private produtoRepository: Repository<Produto>,
+    @InjectRepository(ProdutoEntity)
+    private produtoRepository: Repository<ProdutoEntity>,
+    private produtoRepoService: ProdutoRepoService
   ) { }
 
-  criaProduto(createProdutoDto: CreateProdutoDto): Promise<Produto> {
+  findAllByProdutoId(
+		query: FiltroPaginacaoProdutosDTO,
+	): Promise<ProdutoDto> {
+		return this.produtoRepoService.findAllByCompanyId(query);
+	}
+
+  criaProduto(createProdutoDto: CreateProdutoDto): Promise<ProdutoEntity> {
     const produto = this.produtoRepository.create(createProdutoDto);
     return this.produtoRepository.save(produto);
   }
 
-  listaTodos(): Promise<Produto[]> {
+  listaTodos(): Promise<ProdutoEntity[]> {
     return this.produtoRepository.find();
   }
 
-  async litstaTodosPaginacao(options: IPaginationOptions): Promise<Pagination<Produto>> {
+  async litstaTodosPaginacao(options: IPaginationOptions): Promise<Pagination<ProdutoEntity>> {
     const queryBuilder = this.produtoRepository.createQueryBuilder('produto');
 
     queryBuilder.select([
@@ -43,10 +52,10 @@ export class ProdutoService {
 
     queryBuilder.orderBy('produto.id', 'ASC');
 
-    return paginate<Produto>(queryBuilder, options);
+    return paginate<ProdutoEntity>(queryBuilder, options);
   }
 
-  listaUm(id: number): Promise<Produto> {
+  listaUm(id: number): Promise<ProdutoEntity> {
     const produto = this.produtoRepository.findOne(id)
     if (!produto) {
       throw new HttpException(

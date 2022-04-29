@@ -15,10 +15,6 @@ export class UploadFileRepoService {
 
 	async docImage(fileEncoded: string, createUploadFileDto: CreateUploadFileDto): Promise<UploadFileEntity> {
 		try{
-
-		
-	
-
 		let document = await this.uploadFileRepository.save({ fileEncoded: fileEncoded,descricao: createUploadFileDto.descricao })
 		
 		return document;
